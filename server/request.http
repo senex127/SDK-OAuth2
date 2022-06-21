@@ -29,3 +29,6 @@ GET http://localhost:8080/token?client_id=621e3b8d1f964&client_secret=621e3b8d1f
 #######################################
 GET http://localhost:8080/me
 Authorization: Bearer d08acbb8b7ef8126e525f4bed4f35d39
+
+### Get User Profile
+GET https://graph.facebook.com/v2.10/oauth/access_token?redirect_uri=http%3A%2F%2Flocalhost%3A8083%2Ffb_callback&client_id=2329530167216445&client_secret=8e52387266b5e68f03e76214415934b1&grant_type=authorization_code&code=AQBPrbyflWjGZVnCSH8Y_TzJFmcwvLmvlvIn3S--SLBQ4bJRnWr8q9DZh64maBk7Whg-FMsqPF2uOgO4LuaUo-rRH0qjMm8m7K4pXixkPC2l1u_bs4-X-78B-hFKJUfyYDwu5wgANS6JCuj1PB26aL4zGm3CwACzFpK5i-ypxog0Ui7npa8o06-NWATuH-eCesf5TsM8lpXs_odF0teoI0nDLRCvj_i378ki7fS9qxnmrcUwptDlbT8pFu8Lt4Srxifnih0fwmdbz1PXj-yeTsUwmcHvk7C_rOLnz7znp6zzkVYJSvxfKKytFKTw-gglt9wsVsE6FMl96Wp98aFg7P_cxmUyWx4tKccucQULrswOs9A7E5WxvzegW6QztP-Gyb4

@@ -74,7 +74,7 @@ function fbcallback()
             "code" => $_GET["code"],
         ];
     $clientId = "2329530167216445"; 
-    $clientSecret = "b0c27b63308d46ae5d236d2bd691921b"; 
+    $clientSecret = "c5a9b7db815e9fcda4d363a351cfecc7"; 
     $redirectUri = "http://localhost:8083/fb_callback"; 
     $data = http_build_query(array_merge([
         "redirect_uri" => $redirectUri,
