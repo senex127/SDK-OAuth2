@@ -24,7 +24,9 @@ function login()
         "scope" => "public_profile,email",
         "state" => bin2hex(random_bytes(16))
     ));
-    echo "<a href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Se connecter via Facebook</a>";
+    echo "<a href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Se connecter via Facebook</a><br/>";
+
+    echo "<a href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Se connecter via Google</a>";
 }
 
 function callback()
