@@ -24,7 +24,15 @@ function login()
         "scope" => "public_profile,email",
         "state" => bin2hex(random_bytes(16))
     ));
-    echo "<a href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Se connecter via Facebook</a>";
+    echo "<a href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Se connecter via Facebook</a><br/>";
+    $queryParams= http_build_query(array(
+        "client_id" => "327719897197-bvauroi6rmsecn9fakolaeti6c8ilv8j.apps.googleusercontent.com",
+        "redirect_uri" => "http://localhost:8083/gg_callback",
+        "response_type" => "code",
+        "scope" => "email",
+        "state" => bin2hex(random_bytes(16))
+    ));
+    echo "<a href=\"https://accounts.google.com/o/oauth2/v2/auth?{$queryParams}\">Se connecter via Google</a>";
 }
 
 function callback()
@@ -99,6 +107,37 @@ function fbcallback()
     echo "Hello {$result['name']}";
 }
 
+function ggcallback(){
+    $specifParams = [
+            "grant_type" => "authorization_code",
+            "code" => $_GET["code"],
+        ];
+    $clientId = "327719897197-bvauroi6rmsecn9fakolaeti6c8ilv8j.apps.googleusercontent.com";
+    $clientSecret = "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";
+    $redirectUri = "http://localhost:8083/gg_callback";
+    $data = http_build_query(array_merge([
+        "redirect_uri" => $redirectUri,
+        "client_id" => $clientId,
+        "client_secret" => $clientSecret
+    ], $specifParams));
+    $url = "https://oauth2.googleapis.com/token?{$data}";
+    $result = file_get_contents($url);
+    $result = json_decode($result, true);
+    $accessToken = $result['access_token'];
+
+    $url = "https://www.googleapis.com/oauth2/v1/userinfo";
+    $options = array(
+        'http' => array(
+            'method' => 'POST',
+            'header' => 'Authorization: Bearer ' . $accessToken
+        )
+    );
+    $context = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
+    $result = json_decode($result, true);
+    echo "Hello {$result['name']}";
+}
+
 $route = $_SERVER['REQUEST_URI'];
 switch (strtok($route, "?")) {
     case '/login':
@@ -109,6 +148,9 @@ switch (strtok($route, "?")) {
         break;
     case '/fb_callback':
         fbcallback();
+        break;
+    case '/gg_callback';
+        ggcallback();
         break;
     default:
         echo '404';
