@@ -24,9 +24,39 @@ function login()
         "scope" => "public_profile,email",
         "state" => bin2hex(random_bytes(16))
     ));
+
+    
     echo "<a href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Se connecter via Facebook</a><br/>";
 
-    echo "<a href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Se connecter via Google</a>";
+    echo "<a href=\"https://discord.com/api/oauth2/authorize?{$queryParams}\">Se connecter via Discord</a>";
+    
+}
+
+function loginDiscord()
+{
+    $queryParams= http_build_query(array(
+        "client_id" => "988757754296561704",
+        "redirect_uri" => "http://localhost:8083/ds_callback",
+        "response_type" => "code",
+        "scope" => "email identify",
+        "state" => bin2hex(random_bytes(16))
+    ));
+    echo "
+        <form action='callback' method='POST'>
+            <input type='text' name='username'>
+            <input type='text' name='password'>
+            <input type='submit' value='Login'>
+        </form>
+    ";
+    echo "<a href=\"https://discord.com/api/oauth2/authorize?{$queryParams}\">Se connecter via Discord</a><br/>";
+    $queryParams= http_build_query(array(
+        "client_id" => "988757754296561704",
+        "redirect_uri" => "http://localhost:8083/ds_callback",
+        "response_type" => "code",
+        "scope" => "identify email",
+        "state" => bin2hex(random_bytes(16))
+    ));
+    
 }
 
 function callback()
@@ -83,7 +113,7 @@ function fbcallback()
         "client_id" => $clientId,
         "client_secret" => $clientSecret
     ], $specifParams));
-    $url = "https://graph.facebook.com/v2.10/oauth/access_token?{$data}";
+    $url = "https://discord.com/api/oauth2/token?{$data}";
     $result = file_get_contents($url);
     $result = json_decode($result, true);
     $accessToken = $result['access_token'];
@@ -95,22 +125,73 @@ function fbcallback()
             'header' => 'Authorization: Bearer ' . $accessToken
         )
     );
+    
     $context = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
     $result = json_decode($result, true);
     echo "Hello {$result['name']}";
 }
 
+function dscallback()
+{
+     //Verif si le code de discord est présent    
+    if(!isset($_GET['code'])){ 
+        echo 'no code';
+        die();     }     
+        
+        $ds_code = $_GET['code'];
+        $payload = ['code' => $ds_code,
+        'client_id' => '988757754296561704',
+        'client_secret' => 'F_C7P9pCtL0RWH3Y_YqB4USVY2vXRsaY',
+        'grant_type' => 'authorization_code',
+        'redirect_uri' => 'http://localhost:8083/ds_callback',
+        ];
+
+        $payload_str = http_build_query($payload);
+        $discord_token_url = "https://discord.com/api/v10/oauth2/token";
+        $options = ['http' => ['header'  => "Accept: application/json\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: " . strlen($payload_str) . "\r\n",
+        'method'  => 'POST',             
+        'content' => $payload_str ]];     
+        $context  = stream_context_create($options);     
+        $result = file_get_contents($discord_token_url, false, $context);
+        echo 'test: '.$result ;
+        $result = json_decode($result, true);
+        
+        $accessToken = $result["access_token"];
+        echo 'access_token: '.$accessToken.'<br>' ;
+
+        $url = "https://discord.com/api/users/@me";
+        $options = array(
+            'http' => array(
+                'method' => 'GET',
+                'header' => 'Authorization: Bearer ' . $accessToken
+            )
+        );
+    
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $result = json_decode($result, true);
+        echo 'username'.$result["email"];
+        echo '\n';
+        echo 'username'.$result["username"];
+}
+
+
+
 $route = $_SERVER['REQUEST_URI'];
 switch (strtok($route, "?")) {
     case '/login':
-        login();
+        //login();
+        loginDiscord();
         break;
     case '/callback':
         callback();
         break;
     case '/fb_callback':
         fbcallback();
+        break;
+    case '/ds_callback':
+        dscallback();
         break;
     default:
         echo '404';
