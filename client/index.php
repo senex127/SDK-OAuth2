@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./style.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+
+<div class='login'>
+    
+<h1>SDK-OAUTH</h1>
+
+
+
+
+
 <?php
 
 function login()
@@ -16,7 +35,7 @@ function login()
             <input type='submit' value='Login'>
         </form>
     ";
-    echo "<a href=\"http://localhost:8080/auth?{$queryParams}\">Se connecter via Oauth Server</a><br/>";
+    echo "<a class=\"auth\" href=\"http://localhost:8080/auth?{$queryParams}\">Se connecter via Oauth Server</a><br/>";
     $queryParams= http_build_query(array(
         "client_id" => "2329530167216445",
         "redirect_uri" => "http://localhost:8083/fb_callback",
@@ -24,7 +43,7 @@ function login()
         "scope" => "public_profile,email",
         "state" => bin2hex(random_bytes(16))
     ));
-    echo "<a href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Se connecter via Facebook</a><br/>";
+    echo "<a class=\"auth\" href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Se connecter via Facebook</a><br/>";
     $queryParams= http_build_query(array(
         "client_id" => "327719897197-bvauroi6rmsecn9fakolaeti6c8ilv8j.apps.googleusercontent.com",
         "redirect_uri" => "http://localhost:8083/gg_callback",
@@ -32,7 +51,7 @@ function login()
         "scope" => "email",
         "state" => bin2hex(random_bytes(16))
     ));
-    echo "<a href=\"https://accounts.google.com/o/oauth2/v2/auth?{$queryParams}\">Se connecter via Google</a>";
+    echo "<a class=\"auth\" href=\"https://accounts.google.com/o/oauth2/v2/auth?{$queryParams}\">Se connecter via Google</a></div>";
 }
 
 function callback()
@@ -156,3 +175,8 @@ switch (strtok($route, "?")) {
         echo '404';
         break;
 }
+
+?>
+
+</body>
+</html>
