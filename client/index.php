@@ -91,7 +91,8 @@ function callback()
     $context = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
     $result = json_decode($result, true);
-    echo "Hello {$result['lastname']}";
+    echo "Hello {$result['lastname']}
+    <iframe src=\"https://giphy.com/embed/ule4vhcY1xEKQ\" width=\"480\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>";
 }
 
 function fbcallback()
@@ -123,7 +124,8 @@ function fbcallback()
     $context = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
     $result = json_decode($result, true);
-    echo "Hello {$result['name']}";
+    echo "Hello {$result['name']}
+    <iframe src=\"https://giphy.com/embed/dSdvPrKU0w8WGo4c9L\" width=\"480\" height=\"269\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>";
 }
 
 function ggcallback(){
@@ -139,22 +141,32 @@ function ggcallback(){
         "client_id" => $clientId,
         "client_secret" => $clientSecret
     ], $specifParams));
-    $url = "https://oauth2.googleapis.com/token?{$data}";
-    $result = file_get_contents($url);
+    $url = "https://oauth2.googleapis.com/token";
+    $options = array(
+        'http' => array(
+            'method' => 'POST',
+            'header' => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => $data
+        )
+    );
+    $context = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
     $result = json_decode($result, true);
     $accessToken = $result['access_token'];
 
     $url = "https://www.googleapis.com/oauth2/v1/userinfo";
     $options = array(
         'http' => array(
-            'method' => 'POST',
+            'method' => 'GET',
             'header' => 'Authorization: Bearer ' . $accessToken
         )
     );
     $context = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
     $result = json_decode($result, true);
-    echo "Hello {$result['name']}";
+    echo "Hello {$result['email']}
+    <br/>
+    <iframe src=\"https://giphy.com/embed/cp9mafwcwRCkU\" width=\"480\" height=\"246\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>";
 }
 
 $route = $_SERVER['REQUEST_URI'];
