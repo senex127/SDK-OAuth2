@@ -3,10 +3,7 @@
 
 namespace App;
 
-use App\Providers\Facebook;
-use App\Providers\Server;
-use App\Providers\Discord;
-use App\Providers\Google;
+
 use App\ProviderFactory;
 
 
@@ -36,39 +33,6 @@ session_start();
     $callback = $factory->getProvider("server");
     $discord_callback = $factory->getProvider("discord");
 
-
-
-// $route = $_SERVER['REQUEST_URI'];
-// switch (strtok($route, "?")) {
-//     case '/Fblogin':
-//         echo "<a href='{$fb->loginUrl()}'>Login with Facebook</a>";
-//         break;
-//     case '/serverLogin':
-//     echo "<a href='{$server->loginUrl()}'>Login with Server</a>";
-//     break;    
-//     case '/fbAUth':
-//         $fb->getToken();
-//         $data = $fb->getData();
-//               break;
-//     case '/serverAuth':
-//         $server->getToken();
-//         $data = $server->getUser();
-//         break;
-//    case '/discordAuth':
-//         $discord->getToken();
-//         $data = $discord->getUser();
-//         break;   
-        
-//     case '/GoogleAuth':
-//         $Google->getToken();
-//         $data = $Google->getUser();
-//         break;
-    
-//     case '/user':
-//         $data = $fb->getUser();
-//         break;
-
-// }
 
 $route = $_SERVER['REQUEST_URI'];
 switch (strtok($route, "?")) {

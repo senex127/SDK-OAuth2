@@ -4,17 +4,13 @@
 
 namespace App;
 
-use App\Exceptions\NoAuhorizationCodeException;
-
  abstract class AbstractAuthProvider {
     protected string $redirect_uri;
     protected string $client_id;
     private string $client_secret;
     private string $scope;
-    private string $method = 'GET';
     private string $grant_type = 'authorization_code';
     private array $options = [];
-    private string $access_token;
 
 
     abstract public function getBaseUri();
@@ -52,7 +48,6 @@ use App\Exceptions\NoAuhorizationCodeException;
 
             $url = "{$this->getRequestTokenUri()}?{$requestData}";
 
-            //Post with curl request
             $ch = curl_init();
 
 
@@ -68,7 +63,6 @@ use App\Exceptions\NoAuhorizationCodeException;
         }
     
     }
-
 
     public function getData() {
         
