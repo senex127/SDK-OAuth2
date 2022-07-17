@@ -38,7 +38,6 @@ use App\Exceptions\NoAuhorizationCodeException;
 
     public function getToken()
     {
-       // $result = (file_get_contents("http://host.docker.internal:8080/token?redirect_uri=http%3A%2F%2Flocalhost%3A8081%2FserverAuth&client_id=62c00b59b3dfd&client_secret=62c00b59b3e0d&grant_type=authorization_code&code=1233dd712a790ea504ae00070afdf717"));
 
        if($_GET["code"])
         {
@@ -67,11 +66,6 @@ use App\Exceptions\NoAuhorizationCodeException;
                             
             $_SESSION['access_token'] = $result['access_token'];    
         }
-        else
-        {
-            throw new \InvalidArgumentException("Invalid authorization code");
-        }
-
     
     }
 
@@ -134,7 +128,7 @@ use App\Exceptions\NoAuhorizationCodeException;
 
     }
 
-    public function loginUrl() {
+    public function login() {
 
         $queryParams= http_build_query(array(
             "client_id" => $this->client_id,

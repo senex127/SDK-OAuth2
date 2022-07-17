@@ -17,17 +17,17 @@ class Google extends AbstractAuthProvider
    
     public function getRequestTokenUri()
     {
-        return "lien";
+        return "https://oauth2.googleapis.com/token";
     }
 
     public function getAuthorizeUri()
     {
-        return "lien";
+        return "https://oauth2.googleapis.com/authorize";
     }
 
     public function getBaseUri()
     {
-        return "lien";
+        return "https://www.googleapis.com/oauth2/v1/userinfo";
     }
 
 
@@ -41,8 +41,14 @@ class Google extends AbstractAuthProvider
             "last_name" => $data["last_name"] ?? "",
             "email" => $data["email"] ?? "",
             "provider_id" => $data["id"] ?? "",
-            "provider_name" => "twitch",
+            "provider_name" => "google",
         ];
+
+        function result($user){ 
+            echo "Hello {$user['email']}
+            <br/>
+            <iframe src=\"https://giphy.com/embed/cp9mafwcwRCkU\" width=\"480\" height=\"246\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>"; 
+            }
 
        return $user; 
     }

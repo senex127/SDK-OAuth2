@@ -42,6 +42,11 @@ class Facebook extends AbstractAuthProvider
             "provider_name" => "facebook",
         ];
 
+        function result($user){ 
+            echo "Hello {$user['first_name']}
+            <iframe src=\"https://giphy.com/embed/dSdvPrKU0w8WGo4c9L\" width=\"480\" height=\"269\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>";
+        }
+       
        return $user; 
     }
 

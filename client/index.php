@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App;
 
 use App\Providers\Facebook;
@@ -7,6 +8,10 @@ use App\Providers\Server;
 use App\Providers\Discord;
 use App\Providers\Google;
 use App\ProviderFactory;
+
+
+require_once("config.php");
+
 
 
 
@@ -26,72 +31,104 @@ session_start();
 
 
     $factory = new ProviderFactory($config);
-    $fb = $factory->getProvider("facebook");
-    $Google = $factory->getProvider("Google");
-    $server = $factory->getProvider("server");
-    $discord = $factory->getProvider("discord");
+    $fb_callback = $factory->getProvider("facebook");
+    $gg_callback = $factory->getProvider("google");
+    $callback = $factory->getProvider("server");
+    $discord_callback = $factory->getProvider("discord");
 
 
+
+// $route = $_SERVER['REQUEST_URI'];
+// switch (strtok($route, "?")) {
+//     case '/Fblogin':
+//         echo "<a href='{$fb->loginUrl()}'>Login with Facebook</a>";
+//         break;
+//     case '/serverLogin':
+//     echo "<a href='{$server->loginUrl()}'>Login with Server</a>";
+//     break;    
+//     case '/fbAUth':
+//         $fb->getToken();
+//         $data = $fb->getData();
+//               break;
+//     case '/serverAuth':
+//         $server->getToken();
+//         $data = $server->getUser();
+//         break;
+//    case '/discordAuth':
+//         $discord->getToken();
+//         $data = $discord->getUser();
+//         break;   
+        
+//     case '/GoogleAuth':
+//         $Google->getToken();
+//         $data = $Google->getUser();
+//         break;
+    
+//     case '/user':
+//         $data = $fb->getUser();
+//         break;
+
+// }
 
 $route = $_SERVER['REQUEST_URI'];
 switch (strtok($route, "?")) {
-    case '/Fblogin':
-        echo "<a href='{$fb->loginUrl()}'>Login with Facebook</a>";
+    case '/login':
         break;
-    case '/serverLogin':
-    echo "<a href='{$server->loginUrl()}'>Login with Server</a>";
-    break;    
-    case '/fbAUth':
-        $fb->getToken();
-        $data = $fb->getData();
-              break;
-    case '/serverAuth':
-        $server->getToken();
-        $data = $server->getUser();
+    case '/callback':
+        $callback->getToken();
+        $data = $callback->getUser();
         break;
-   case '/discordAuth':
-        $discord->getToken();
-        $data = $discord->getUser();
-        break;   
-        
-    case '/GoogleAuth':
-        $Google->getToken();
-        $data = $Google->getUser();
+    case '/discord_callback':
+        $discord_callback->getToken();
+        $data = $discord_callback->getUser();
         break;
-    
-    case '/user':
-        $data = $fb->getUser();
+    case '/fb_callback':
+        $fb_callback->getToken();
+        $data = $fb_callback->getUser();
         break;
-
+    case '/gg_callback';
+        $gg_callback->getToken();
+        $data = $gg_callback->getUser();
+        break;
+    default:
+        echo '404';
+        break;
 }
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./style.css" rel="stylesheet">
     <title>Document</title>
 </head>
 
-</style>
 <body>
-<div >
-<?php echo isset($data) ?  var_dump($data) : ""?>
-</div>
-    
 
-<div >
-    <div>
-        <h2>O2auth Login</h2>
-    <a  href='<?php echo $fb->loginUrl() ?>'>Login with Facebook 
-</a>
-    <a  href='<?php echo $Google->loginUrl() ?>'>Login with Google</a>
-    <a href='<?php echo $server->loginUrl() ?>'>Login with LocalServer</a>
-    <a  href='<?php echo $discord->loginUrl() ?>'>Login with Discord</a>
-    </div>
-</div>
+    <div class='login'>
+
+        <h1>SDK-OAUTH</h1>
+
+        <form action="callback">
+            <input type="text" name="username">
+            <input type="text" name="password">
+            <input type="submit" value="Login">
+        </form>
+
+
+        <a class="auth" href='<?php echo $fb_callback->login() ?>'>Login with Facebook</a>
+        <a class="auth" href='<?php echo $gg_callback->login() ?>'>Login with Google</a>
+        <a class="auth" href='<?php echo $callback->login() ?>'>Login with LocalServer</a>
+        <a class="auth" href='<?php echo $discord_callback->login() ?>'>Login with Discord</a>
+
 
 </body>
+
 </html>

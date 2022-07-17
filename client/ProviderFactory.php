@@ -5,8 +5,10 @@ use App\AbstractAuthProvider;
 
 use App\Providers\Facebook;
 use App\Providers\Discord;
-use App\Providers\Twitch;
+use App\Providers\Google;
 use App\Providers\Server;
+
+
 
 
 class ProviderFactory{
@@ -18,7 +20,7 @@ class ProviderFactory{
     public function __construct($configs)
     {
         $this->providers = [
-            "twitch" => Twitch::class,
+            "google" => Google::class,
             "facebook" => Facebook::class,
             "server" => Server::class,
             "discord" => Discord::class,
