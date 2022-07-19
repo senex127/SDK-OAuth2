@@ -61,7 +61,7 @@ namespace App;
             $result = (curl_exec($ch));
             $result = json_decode($result, true);
                 
-            if (isset($_SESSION['access_token']))
+            if (isset($result['access_token']))
             {
                 $_SESSION['access_token'] = $result['access_token'];
             }    
