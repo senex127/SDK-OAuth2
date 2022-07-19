@@ -4,18 +4,18 @@
 
 namespace App;
 
- abstract class AbstractAuthProvider {
-    protected string $redirect_uri;
-    protected string $client_id;
-    private string $client_secret;
-    private string $scope;
-    private string $grant_type = 'authorization_code';
-    private array $options = [];
+ abstract class AbstractClass {
+    protected  $client_id;
+    private  $client_secret;
+    private $scope;
+    private $grant_type = 'authorization_code';
+    private $options = [];
+    protected $redirect_uri;
 
-
-    abstract public function getBaseUri();
 
     abstract public function getRequestTokenUri();
+
+    abstract public function getBaseUri();
 
     abstract public function getAuthorizeUri();
 
@@ -34,6 +34,7 @@ namespace App;
 
     public function getToken()
     {
+       // $result = (file_get_contents("http://host.docker.internal:8080/token?redirect_uri=http%3A%2F%2Flocalhost%3A8081%2FserverAuth&client_id=62c00b59b3dfd&client_secret=62c00b59b3e0d&grant_type=authorization_code&code=1233dd712a790ea504ae00070afdf717"));
 
        if($_GET["code"])
         {
@@ -48,6 +49,7 @@ namespace App;
 
             $url = "{$this->getRequestTokenUri()}?{$requestData}";
 
+            //Post with curl request
             $ch = curl_init();
 
 
@@ -58,11 +60,20 @@ namespace App;
             curl_setopt($ch, CURLOPT_POSTFIELDS, $requestData);
             $result = (curl_exec($ch));
             $result = json_decode($result, true);
-                            
-            $_SESSION['access_token'] = $result['access_token'];    
+                
+            if (isset($_SESSION['access_token']))
+            {
+                $_SESSION['access_token'] = $result['access_token'];
+            }    
         }
+        else
+        {
+            echo("Invalid authorization code");
+        }
+
     
     }
+
 
     public function getData() {
         
@@ -133,6 +144,7 @@ namespace App;
         ));
 
         return  "{$this->getAuthorizeUri()}?{$queryParams}";
+        
     }
     
 }

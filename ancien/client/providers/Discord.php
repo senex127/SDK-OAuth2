@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\AbstractAuthProvider;
+use App\AbstractClass;
 
-require_once("AbstractAuthProvider.php");
+require_once("AbstractClass.php");
 
 
-class Discord extends AbstractAuthProvider
+class Discord extends AbstractClass
 {
 
     public function __construct(string $client_id, string $client_secret, string $redirect_uri, string $scope, array $params)
@@ -33,20 +33,19 @@ class Discord extends AbstractAuthProvider
     public function getUser(): array {
 
         $data = $this->getData();
- 
 
         $user = [
             "user_name" => $data["username"] ?? "",
-            "first_name" => $data["first_name"] ?? "",
-            "last_name" => $data["last_name"] ?? "",
-            "email" => $data["email"] ?? "",
-            "provider_id" => $data["id"] ?? "",
-            "provider_name" => "discord",
         ];
 
+        function result($user){ 
+            echo "Hello {$user['first_name']}";
+        }
+       
        return $user; 
     }
 
 }
+
 
 ?>

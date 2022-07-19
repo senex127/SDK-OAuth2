@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\AbstractAuthProvider;
+use App\AbstractClass;
 
-require_once("AbstractAuthProvider.php");
+require_once("AbstractClass.php");
 
 
-class Facebook extends AbstractAuthProvider
+class Facebook extends AbstractClass
 {
 
     public function __construct(string $client_id, string $client_secret, string $redirect_uri, string $scope, array $params)
@@ -43,8 +43,7 @@ class Facebook extends AbstractAuthProvider
         ];
 
         function result($user){ 
-            echo "Hello {$user['first_name']}
-            <iframe src=\"https://giphy.com/embed/dSdvPrKU0w8WGo4c9L\" width=\"480\" height=\"269\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>";
+            echo "Hello {$user['first_name']}";
         }
        
        return $user; 

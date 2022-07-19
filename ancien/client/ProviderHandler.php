@@ -1,17 +1,18 @@
 <?php
 
 namespace App;
-use App\AbstractAuthProvider;
 
-use App\Providers\Facebook;
-use App\Providers\Discord;
-use App\Providers\Google;
-use App\Providers\Server;
+use App\ProviderHandler;
+
+use App\providers\Facebook;
+use App\providers\Discord;
+use App\providers\Google;
+use App\providers\server;
 
 
 
 
-class ProviderFactory{
+class ProviderHandler {
 
     protected $providers = [];
     protected $configs = [];
@@ -20,25 +21,28 @@ class ProviderFactory{
     public function __construct($configs)
     {
         $this->providers = [
-            "google" => Google::class,
             "facebook" => Facebook::class,
-            "server" => Server::class,
             "discord" => Discord::class,
+            "google" => Google::class,
+            "server" => Server::class,
         ];
 
-        $this->configs = $configs;
+        $this -> configs = $configs;
+
     }
 
 
-    public function factory($name, $config): AbstractAuthProvider
+    public function factory($name, $config): AbstractClass
     {
         $class = $this->providers[$name];
         return new $class($config["client_id"], $config["client_secret"], $config["redirect_uri"], $config["scope"], $config["params"]);
     }
 
 
-    public function getProvider($name): AbstractAuthProvider
+    public function getProvider($name): AbstractClass
     {
         return $this->factory($name, $this->configs[$name]);
     }
+
+    
 }

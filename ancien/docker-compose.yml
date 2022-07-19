@@ -5,7 +5,7 @@ services:
       - ./server:/home/root
     working_dir: /home/root
     ports:
-      - 8082:8080
+      - 8085:8080
     command: "php -S 0.0.0.0:8080"
   oauth-client:
     image: php:alpine
@@ -13,5 +13,5 @@ services:
       - ./client:/home/root
     working_dir: /home/root
     ports:
-      - 8083:8080
+      - 8084:8080
     command: "php -S 0.0.0.0:8080"

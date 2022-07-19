@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\AbstractAuthProvider;
+use App\AbstractClass;
 
-require_once("AbstractAuthProvider.php");
+require_once("AbstractClass.php");
 
 
-class Server extends AbstractAuthProvider
+class Server extends AbstractClass
 {
 
     public function __construct(string $client_id, string $client_secret, string $redirect_uri, string $scope, array $params)
@@ -17,17 +17,17 @@ class Server extends AbstractAuthProvider
    
     public function getRequestTokenUri()
     {
-        return "http://host.docker.internal:port/token";
+        return "http://host.docker.internal:8085/token";
     }
 
     public function getAuthorizeUri()
     {
-        return "http://localhost:port/auth";
+        return "http://localhost:8085/auth";
     }
 
     public function getBaseUri()
     {
-        return "http://host.docker.internal:port/me";
+        return "http://host.docker.internal:8085/me";
     }
 
     public function getUser(): array {

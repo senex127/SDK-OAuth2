@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\AbstractAuthProvider;
+use App\AbstractClass;
 
-require_once("AbstractAuthProvider.php");
+require_once("AbstractClass.php");
 
 
-class Google extends AbstractAuthProvider
+class Google extends AbstractClass
 {
 
     public function __construct(string $client_id, string $client_secret, string $redirect_uri, string $scope, array $params)
