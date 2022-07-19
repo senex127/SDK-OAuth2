@@ -47,10 +47,10 @@ class Google extends AbstractClass
         function result($user){ 
             echo "Hello {$user['email']}
             <br/>
-            <iframe src=\"https://giphy.com/embed/cp9mafwcwRCkU\" width=\"480\" height=\"246\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>"; 
-            }
+            <iframe src=\"https://giphy.com/embed/cp9mafwcwRCkU\" width=\"480\" height=\"246\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>";
+        }
 
-       return $user; 
+       return result($user); 
     }
 
 

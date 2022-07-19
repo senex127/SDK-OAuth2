@@ -21,7 +21,7 @@ $config = [
         "client_id" => "621e3b8d1f964",
         "client_secret" => "621e3b8d1f966",
         "redirect_uri" => "http://localhost:8084/callback",
-        "scope" => "t",
+        "scope" => "read,write",
         "params" => []  
     ],
 
@@ -29,7 +29,7 @@ $config = [
         "client_id" => "327719897197-bvauroi6rmsecn9fakolaeti6c8ilv8j.apps.googleusercontent.com",
         "client_secret" => "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",
         "redirect_uri" => "http://localhost:8084/gg_callback",
-        "scope" => "",
+        "scope" => "email",
         "params" => []   
     ],
 

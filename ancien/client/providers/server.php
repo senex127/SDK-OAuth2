@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\AbstractClass;
 
+use function App\Providers\result as ProvidersResult;
+
 require_once("AbstractClass.php");
 
 
@@ -42,10 +44,10 @@ class Server extends AbstractClass
 
         function result($user){ 
             echo "Hello {$user['first_name']} {$user['last_name']} <br>
-            <iframe src=\"https://giphy.com/embed/dSdvPrKU0w8WGo4c9L\" width=\"480\" height=\"269\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>";
-        }
+            <iframe src=\"https://giphy.com/embed/ule4vhcY1xEKQ\" width=\"480\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>";
+            }
 
-       return $user; 
+       return result($user); 
     }
 
 }

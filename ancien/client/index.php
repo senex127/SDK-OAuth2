@@ -100,10 +100,10 @@ echo "
 ?>
 
 <?php
-echo "<a class='auth' href=". $ds_callback->login()." ?>Login with Discord</a>";
-echo "<a class='auth' href=". $fb_callback->login()." ?>Login with Facebook</a>";
-echo "<a class='auth' href=". $gg_callback->login()." ?>Login with Google</a>";
-echo "<a class='auth' href=". $callback->login()." ?>Login with Server</a>";
+echo "<a class='auth' href=". $ds_callback->login()." ?>Se connecter via Discord</a>";
+echo "<a class='auth' href=". $fb_callback->login()." ?>Se connecter via Facebook</a>";
+echo "<a class='auth' href=". $gg_callback->login()." ?>Se connecter via Google</a>";
+echo "<a class='auth' href=". $callback->login()." ?>Se connecter via Server</a>";
 
 ?>
 

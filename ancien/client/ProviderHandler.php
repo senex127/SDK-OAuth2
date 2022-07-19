@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\ProviderHandler;
-
 use App\providers\Facebook;
 use App\providers\Discord;
 use App\providers\Google;

@@ -35,6 +35,7 @@ class Facebook extends AbstractClass
         $data = $this->getData();
 
         $user = [
+            "user_name" => $data["name"] ?? "",
             "first_name" => $data["first_name"] ?? "",
             "last_name" => $data["last_name"] ?? "",
             "email" => $data["email"] ?? "",
@@ -43,10 +44,12 @@ class Facebook extends AbstractClass
         ];
 
         function result($user){ 
-            echo "Hello {$user['first_name']}";
+            echo "Hello {$user['user_name']}
+            <br/>
+            <iframe src=\"https://giphy.com/embed/dSdvPrKU0w8WGo4c9L\" width=\"480\" height=\"269\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>";
         }
        
-       return $user; 
+       return result($user); 
     }
 
 }

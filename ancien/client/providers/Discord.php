@@ -39,10 +39,12 @@ class Discord extends AbstractClass
         ];
 
         function result($user){ 
-            echo "Hello {$user['first_name']}";
+            echo "Hello {$user['user_name']}
+            <br/>
+            <iframe src=\"https://giphy.com/embed/kqGp0mQGvdsg2MEiEr\" width=\"480\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe>";
         }
        
-       return $user; 
+       return result($user); 
     }
 
 }
